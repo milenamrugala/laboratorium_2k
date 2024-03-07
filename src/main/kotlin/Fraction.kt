@@ -1,52 +1,50 @@
 class Fraction(
-    private var nominator: Int,
-    private var dominator: Int
+    private var numerator: Int,
+    private var denominator: Int
 ) {
 
     override fun toString(): String {
-        return "Fraction(nominator=$nominator, dominator=$dominator)"
+        return "Fraction(numerator=$numerator, denominator=$denominator)"
     }
 
-    fun getNominator(): Int {
-        return nominator
+    fun add(other: Fraction): Fraction {
+        val commonDenominator = denominator * other.denominator
+        val sumNumerator = numerator * other.denominator + other.numerator * denominator
+        return Fraction(sumNumerator, commonDenominator)
     }
 
-    fun getDominator(): Int {
-        return dominator
-    }
-
-    fun setNominator(nominator: Int) {
-        this.nominator = nominator
-    }
-
-    fun setDominator(dominator: Int) {
-        this.dominator = dominator
-    }
-
-    fun add(secondFraction: Fraction): Fraction {
-        val commonDominator = dominator * secondFraction.dominator
-        val sumNominator = nominator * secondFraction.dominator + secondFraction.nominator * dominator
-        return Fraction(sumNominator, commonDominator)
-    }
-
-    fun sub(thirdFraction: Fraction): Fraction {
-        val commonDominator = dominator * thirdFraction.dominator
-        val subNominator = nominator * thirdFraction.dominator - thirdFraction.nominator * dominator
+    fun sub(other: Fraction): Fraction {
+        val commonDominator = denominator * other.denominator
+        val subNominator = numerator * other.denominator - other.numerator * denominator
         return Fraction(subNominator, commonDominator)
     }
 
-    fun mul(fourthFraction: Fraction): Fraction {
-        val nominators = nominator * fourthFraction.nominator
-        val dominators = dominator * fourthFraction.dominator
-        return Fraction(nominators, dominators)
+    fun mul(other: Fraction): Fraction {
+        val numerators = numerator * other.numerator
+        val denominators = denominator * other.denominator
+        return Fraction(numerators, denominators)
     }
 
-//    fun div(fifthFraction: Fraction): Fraction {
-//
-//    }
-//
-//    fun inv(sixthFraction: Fraction): Fraction {
-//
-//    }
+    fun inv(other: Fraction): Fraction {
+        val numerator = other.numerator
+        val denominator = other.denominator
+        return Fraction(denominator, numerator)
+    }
+
+    fun div(other: Fraction): Fraction {
+        return mul(other.inv(other))
+    }
+
+    fun gcd(a: Int, b: Int): Int {
+        var firstNumber = a
+        var secondNumber = b
+
+        while (secondNumber != 0) {
+            val temp = secondNumber
+            secondNumber = firstNumber % secondNumber
+            firstNumber = temp
+        }
+        return firstNumber
+    }
 }
 
