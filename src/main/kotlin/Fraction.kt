@@ -3,39 +3,35 @@ class Fraction(
     private var denominator: Int
 ) {
 
-    override fun toString(): String {
-        return "Fraction(numerator=$numerator, denominator=$denominator)"
-    }
-
     fun add(other: Fraction): Fraction {
         val commonDenominator = denominator * other.denominator
         val sumNumerator = numerator * other.denominator + other.numerator * denominator
-        return Fraction(sumNumerator, commonDenominator)
+        return Fraction(sumNumerator, commonDenominator).simplify()
     }
 
     fun sub(other: Fraction): Fraction {
         val commonDominator = denominator * other.denominator
         val subNominator = numerator * other.denominator - other.numerator * denominator
-        return Fraction(subNominator, commonDominator)
+        return Fraction(subNominator, commonDominator).simplify()
     }
 
     fun mul(other: Fraction): Fraction {
         val numerators = numerator * other.numerator
         val denominators = denominator * other.denominator
-        return Fraction(numerators, denominators)
+        return Fraction(numerators, denominators).simplify()
     }
 
     fun inv(other: Fraction): Fraction {
         val numerator = other.numerator
         val denominator = other.denominator
-        return Fraction(denominator, numerator)
+        return Fraction(denominator, numerator).simplify()
     }
 
     fun div(other: Fraction): Fraction {
-        return mul(other.inv(other))
+        return mul(other.inv(other)).simplify()
     }
 
-    fun gcd(a: Int, b: Int): Int {
+    private fun gcd(a: Int, b: Int): Int {
         var firstNumber = a
         var secondNumber = b
 
@@ -45,6 +41,35 @@ class Fraction(
             firstNumber = temp
         }
         return firstNumber
+    }
+
+    private fun simplifyFraction() {
+        val gcd = gcd(numerator, denominator)
+        numerator /= gcd
+        denominator /= gcd
+    }
+
+    private fun simplify(): Fraction {
+        simplifyFraction()
+        return this
+    }
+
+    override fun toString(): String {
+        return if (denominator == 1) {
+            "$numerator"
+        } else {
+            val whole = numerator / denominator
+            val remainder = numerator % denominator
+            if (whole != 0) {
+                if (remainder != 0) {
+                    "$whole $remainder/$denominator"
+                } else {
+                    "$whole"
+                }
+            } else {
+                "$numerator/$denominator"
+            }
+        }
     }
 }
 

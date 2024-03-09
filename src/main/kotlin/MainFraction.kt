@@ -1,15 +1,15 @@
 fun main() {
-    val firstNumber = Fraction(1,2)
-    val secondNumber = Fraction(3,5)
+    val firstNumber = Fraction(11, 11)
+    val secondNumber = Fraction(3,8)
 
-    println(firstNumber) // (1/2)
-    println(secondNumber) // (3/5)
+    println(firstNumber) //ok
+    println(secondNumber) //dla ułamka typu 3/6 nie skraca do 1/2, dopiero w kolejnych metodach przy dodawaniu, odejmowaniu
 
-    val sum = firstNumber.add(secondNumber) // (11/10)
-    val sub = firstNumber.sub(secondNumber) // (-1/10)
-    val mul = firstNumber.mul(secondNumber) // (3/10)
-    val inv = firstNumber.inv(secondNumber) // (5/3)
-    val div = firstNumber.div(secondNumber) // (5/6)
+    val sum = firstNumber.add(secondNumber) //ok
+    val sub = firstNumber.sub(secondNumber) //ok
+    val mul = firstNumber.mul(secondNumber) //ok
+    val inv = firstNumber.inv(secondNumber) //ok, skraca i odwraca
+    val div = firstNumber.div(secondNumber) //ok, skraca i odwraca
 
     println(sum)
     println(sub)
